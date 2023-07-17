@@ -1,6 +1,8 @@
 use pam::module::PamHooks;
 use pam::constants::PamResultCode;
 
+mod vpn;
+
 struct PamVPN;
 pam::pam_hooks!(PamVPN);
 

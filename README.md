@@ -1,3 +1,3 @@
 # PAM VPN module
 
-Inspired by [pam-rs](https://anowell/pam-rs)
+Inspired by [pam-rs](https://github.com/anowell/pam-rs)
