@@ -1,4 +1,5 @@
 #!/bin/bash
+# ref. https://hiteit.tistory.com/5
 
 mkdir easy-rsa
 ln -s /usr/share/easy-rsa/* easy-rsa

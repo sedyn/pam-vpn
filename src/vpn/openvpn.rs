@@ -13,8 +13,6 @@ impl VPNClient<UserPasswordCredential<'_>> for OpenVPNClient {
             .arg(credential.password)
             .output()?;
 
-        
-        
         Ok(())
     }
 }
