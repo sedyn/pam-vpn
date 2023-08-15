@@ -1,21 +1,18 @@
-use std::{
-    env::temp_dir,
-    fs::{remove_file, File},
-    io::Write,
-    process::Command,
-};
+use std::process::Command;
 
 use anyhow::Context;
 
 use super::{credential::UserPasswordCredential, VPNClient};
 
-pub struct OpenVPNClient;
+pub struct OpenVPNClient<'a> {
+    pub config_path: Option<&'a str>,
+}
 
-impl VPNClient<UserPasswordCredential<'_>> for OpenVPNClient {
+impl VPNClient<UserPasswordCredential<'_>> for OpenVPNClient<'_> {
     fn connect(&self, credential: UserPasswordCredential) -> anyhow::Result<()> {
         let mut child = Command::new("openvpn")
             .arg("--config")
-            .arg("client.conf")
+            .arg(self.config_path.unwrap_or("/etc/pam.d/client.conf"))
             .arg("--auth-user-pass")
             .spawn()?;
 
@@ -25,6 +22,10 @@ impl VPNClient<UserPasswordCredential<'_>> for OpenVPNClient {
             .context("unable to acquire stdin of child")?;
 
         credential.write(stdin)?;
+
+        let output = child.wait_with_output()?;
+
+        println!("{:?}", output.status);
 
         Ok(())
     }
