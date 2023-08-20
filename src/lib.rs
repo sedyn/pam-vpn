@@ -2,7 +2,6 @@ use pam::constants::{PamResultCode, PAM_PROMPT_ECHO_OFF};
 use pam::conv::Conv;
 use pam::module::PamHooks;
 use pam::pam_try;
-use std::ffi::CStr;
 
 use crate::vpn::credential::UserPasswordCredential;
 use crate::vpn::openvpn::OpenVPNClient;
@@ -31,7 +30,7 @@ impl PamHooks for PamVPN {
             }
         };
 
-        let password = pam_try!(conv.send(PAM_PROMPT_ECHO_OFF, "password: "));
+        let password = pam_try!(conv.send(PAM_PROMPT_ECHO_OFF, "Password: "));
         let password = match password {
             Some(password) => pam_try!(password.to_str(), PamResultCode::PAM_AUTH_ERR),
             None => {

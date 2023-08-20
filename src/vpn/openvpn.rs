@@ -1,4 +1,4 @@
-use std::process::Command;
+use std::{process::{Command, Stdio}, io::Read};
 
 use anyhow::Context;
 
@@ -11,22 +11,37 @@ pub struct OpenVPNClient<'a> {
 impl VPNClient<UserPasswordCredential<'_>> for OpenVPNClient<'_> {
     fn connect(&self, credential: UserPasswordCredential) -> anyhow::Result<()> {
         let mut child = Command::new("openvpn")
+            //.arg("--daemon")
             .arg("--config")
             .arg(self.config_path.unwrap_or("/etc/pam.d/client.conf"))
-            .arg("--auth-user-pass")
+            .stdin(Stdio::piped())
+            .stdout(Stdio::piped())
             .spawn()?;
 
-        let stdin = child
-            .stdin
+        // let stdin = child
+        //     .stdin
+        //     .as_mut()
+        //     .context("unable to get stdin of child")?;
+
+        // credential.write(stdin)?;
+        // drop(stdin);
+
+        let stdout = child
+            .stdout
             .as_mut()
-            .context("unable to acquire stdin of child")?;
+            .context("unable to get stdout of child")?;
 
-        credential.write(stdin)?;
-
-        let output = child.wait_with_output()?;
-
-        println!("{:?}", output.status);
+        let mut buf= String::new();
+        while let Ok(size) = stdout.read_to_string(&mut buf) {
+            if size > 0 {
+                println!("{}", &buf);
+            }
+        }
 
         Ok(())
     }
+}
+
+impl<'a> OpenVPNClient<'a> {
+
 }

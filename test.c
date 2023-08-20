@@ -11,7 +11,7 @@ int main(int argc, char *argv[]) {
     pam_handle_t* pamh = NULL;
     int retval;
 
-    const char* user = "nobody";
+    const char* user = "testuser";
 
     retval = pam_start("pam-vpn", user, &conv, &pamh);
 

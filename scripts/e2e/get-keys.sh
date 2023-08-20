@@ -10,11 +10,17 @@ cat <<EOF >> test.conf
 client
 proto udp
 remote localhost 8081
-prot 1194
 dev tun
 nobind
 key-direction 1
+remote-cert-tls server
+cipher AES-256-CBC
+auth-user-pass
+auth-nocache
 <ca>
 $(<keys/server/ca.crt)
 </ca>
+<tls-auth>
+$(<keys/server/ta.key)
+</tls-auth>
 EOF
