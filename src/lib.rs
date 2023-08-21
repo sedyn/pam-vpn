@@ -39,18 +39,18 @@ impl PamHooks for PamVPN {
         };
 
         let credential = UserPasswordCredential {
-            user: &user,
+            username: &user,
             password,
         };
 
         dbg!(&credential);
 
-        let client = OpenVPNClient {
-            config_path: None
-        };
+        let client = OpenVPNClient { config_path: None };
 
         match client.connect(credential) {
-            Ok(_) => PamResultCode::PAM_SUCCESS,
+            Ok(_) => {
+                PamResultCode::PAM_SUCCESS
+            },
             Err(e) => {
                 dbg!(e);
                 PamResultCode::PAM_AUTH_ERR

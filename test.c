@@ -21,11 +21,6 @@ int main(int argc, char *argv[]) {
     }
 
     if (retval == PAM_SUCCESS) {
-        printf("Account is valid.\n");
-        retval = pam_acct_mgmt(pamh, 0);
-    }
-
-    if (retval == PAM_SUCCESS) {
         printf("Authenticated\n");
     } else {
         printf("Not Authenticated\n");
