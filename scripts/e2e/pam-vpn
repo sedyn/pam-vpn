@@ -1,0 +1,1 @@
+auth sufficient libpam_vpn.so host=udp://localhost:8081
