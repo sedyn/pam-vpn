@@ -8,6 +8,7 @@ use crate::vpn::openvpn::OpenVPNClient;
 use crate::vpn::VPNClient;
 
 mod vpn;
+mod watcher;
 
 struct PamVPN;
 pam::pam_hooks!(PamVPN);
@@ -19,6 +20,7 @@ impl PamHooks for PamVPN {
         flags: pam::constants::PamFlag,
     ) -> pam::constants::PamResultCode {
         dbg!(args);
+        dbg!(flags);
 
         let user = pam_try!(pamh.get_user(None));
 
