@@ -23,6 +23,9 @@ cd scripts/e2e
 # build docker image
 docker build . -t vpn
 
+# run test openVPN server
+./run.sh
+
 # get keys and generate test.conf file for testing
 ./get-keys.sh
 
