@@ -13,7 +13,7 @@
         - copy cert files from test openVPN server
 
 ## Test
-### Enviroment
+### Environment
 - Debian 12
 - Docker
 
