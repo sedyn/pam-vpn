@@ -3,3 +3,7 @@ test
 scripts/e2e/keys
 scripts/e2e/test.conf
 venv
+.idea
+
+scripts/gpms/gpms_install_script
+scripts/gpms/mariadb_install_script

@@ -1,5 +1,15 @@
 # PAM VPN module
 
+## Requirements
+
+### Add `test-gpms.gooroom.kr` to the hosts file
+```shell
+# /etc/hosts
+# 127.0.0.1 test-gpms.gooroom.kr
+
+sudo /etc/init.d/networking restart
+```
+
 ## Files
 
 - test.c
