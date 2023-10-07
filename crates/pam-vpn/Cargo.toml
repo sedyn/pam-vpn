@@ -1,0 +1,16 @@
+[package]
+name = "pam-vpn"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[lib]
+name = "pam_vpn"
+crate-type = ["cdylib"]
+
+[dependencies]
+pam-bindings = "0.1.1"
+
+anyhow = "1.0"
+rexpect = "0.5"
